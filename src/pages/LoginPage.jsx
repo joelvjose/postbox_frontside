@@ -1,18 +1,35 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
+import { Helmet, HelmetProvider } from 'react-helmet-async'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
+
+import { resetRegistered, login } from '../redux/slice'
 import Loading from '../components/Loading'
-import { Helmet } from 'react-helmet'
-import { UseSelector, useDispatch } from 'react-redux/es/hooks/useSelector'
-import { Navigate } from 'react-router-dom'
 
 const LoginPage = () => {
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading,isAuthenticated,registered,isSuperuser } = useSelector(state=>state.user);
+  const navigate = useNavigate();
+  const { loading,isAuthenticated,registered } = useSelector(state=>state.user);
   const [formData,setFormData] = useState({
     email:'',
     password:''
   });
+
+  useEffect(()=>{
+    if(registered)
+    {
+      dispatch(resetRegistered());
+    }
+  },[dispatch,registered]);
+
+  useEffect(()=> {
+    if (isAuthenticated) {
+      navigate('/home'); 
+    } else {
+      navigate('/'); 
+    }
+  },[isAuthenticated, navigate]);
 
   const {email,password} = formData
 
@@ -20,25 +37,13 @@ const LoginPage = () => {
     setFormData({...formData, [e.target.name]: e.target.value });
   }
 
-  useEffect(()=>{
-
-    if(registered)
-    {
-      dispatch(resetRegistered());
-    }
-  },[dispatch,registered]);
-
   const handleLogin =async (e)=>{
     e.preventDefault();
     dispatch(login({email,password}));
-  }
-
-  const toSignup=()=>{
-    navigate("/signup");
- }
+  };
   
   return (
-    <>
+    <HelmetProvider>
     <Helmet>
             <title>'Postbox | login'</title>
             <meta name='description' content='User login' />
@@ -52,7 +57,7 @@ const LoginPage = () => {
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <img className="mx-auto w-auto" src="logo1.jpg" alt="Your Company"/>
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-          Sign in to your account
+          Login to your account
         </h2>
       </div>
 
@@ -73,7 +78,7 @@ const LoginPage = () => {
                 name="email"
                 type="email"
                 value={email}
-                onChange={onchange}
+                onChange={onChange}
                 required
                 className="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
@@ -113,27 +118,36 @@ const LoginPage = () => {
           <div>
             <button
               type="submit"
-              className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="flex w-full  justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
-              Sign in
+              Log in
             </button>
           </div>
         </form>
 
         <p className="mt-10 text-center text-sm text-gray-500">
           Not a member? 
-          <button
-            onClick={toSignup}
-            className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+          <Link
+            to={'/register'}
+            className="font-semibold leading-6 ml-2 text-indigo-600 hover:text-indigo-500"
           >
-             Sign up
-          </button>
+             Register
+          </Link>
+        </p>
+        <p className="mt-5 text-center text-sm text-gray-500">
+          Are you an Admin? 
+          <Link
+            to={'/admin-login'}
+            className="font-semibold leading-6 ml-2 text-indigo-600 hover:text-indigo-500"
+          >
+             Login Here
+          </Link>
         </p>
       </div>
     </div>
      
     )}
-  </>
+  </HelmetProvider>
   )
 }
 

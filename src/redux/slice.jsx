@@ -55,7 +55,7 @@ export const getUser = createAsyncThunk(
             return thunkAPI.rejectWithValue(data);
         }
     } catch(err) {
-        return thunkAPI.rejectWithValue(err)
+        return thunkAPI.rejectWithValue(err.response.data)
     }
 })
 
@@ -64,7 +64,7 @@ export const login = createAsyncThunk(
 	async ({ email, password }, thunkAPI) => {
         try {
             
-			const response =await axios.post(`${BASE_URL}/login/`,{
+			const response =await axios.post(`${BASE_URL}/api/token/`,{
                 email,
                 password
               })
@@ -100,7 +100,7 @@ export const checkAuth = createAsyncThunk(
     const accessToken = localStorage.getItem('access_token');
     const body = JSON.stringify({ token: accessToken });
     try {
-        const res = await fetch(`${BASE_URL}/login/verify/`, {
+        const res = await fetch(`${BASE_URL}/api/token/verify/`, {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -140,7 +140,7 @@ export const updateToken = createAsyncThunk(
         const refreshToken = localStorage.getItem('access_token');
         const body = JSON.stringify({ token : refreshToken })
         try {
-            const res = await fetch(`${BASE_URL}/login/refresh/`, {
+            const res = await fetch(`${BASE_URL}/api/token/refresh/`, {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',

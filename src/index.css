@@ -5,7 +5,7 @@
 /* loader css file */
 .loader {
   /* color of choise */
-  --clr: #05A8AA;
+  --clr: #1f1f1f;
   /* loading time of choice */
   --load-time: 2s;
   outline: 5px solid var(--clr);
@@ -20,6 +20,14 @@
   /* I prefer the padding one */
   /* rotate: -90deg; */
   /* rotate if you want/need vertical loader */
+}
+
+.loading-container{
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
 }
 
 .loader::after {
