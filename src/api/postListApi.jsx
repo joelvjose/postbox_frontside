@@ -1,6 +1,6 @@
 import React from 'react'
 
-const UserNavBar = () => {
+const PostListAPI = () => {
   return (
     <div>
       
@@ -8,4 +8,4 @@ const UserNavBar = () => {
   )
 }
 
-export default UserNavBar
+export default PostListAPI
