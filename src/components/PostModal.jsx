@@ -1,14 +1,53 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { toast } from 'react-toastify';
 
-const PostModal = ({ isVisible, onClose }) => {
+import createPostApi from '../api/createPostApi'
+import UpdatePostApi from '../api/UpdatePostApi'
+
+const PostModal = ({ isVisible, onClose, postID }) => {
+
+    const[postImage,setPostImage] = useState()
+    const [caption,setCaption] = useState("")
 
     if( !isVisible ) return null;
+
+    const handleSubmit = async (e) =>{
+      e.preventDefault();
+      if(postID){
+        try{
+          await UpdatePostApi(postID, caption, postImage);
+          onClose();
+          toast.success('Post Updated successfully!', {
+            position: "top-center",
+          });
+        }
+        catch (error) {
+          toast.error('Failure, Post not Update!', {
+            position: "top-center",
+          });
+        }
+      }else{
+        try{
+          await createPostApi(caption,postImage);
+          onClose();
+          toast.success('Post Created successfully!', {
+            position: "top-center",
+          });
+        }
+        catch (error) {
+          toast.error('Failure, Post not Created!', {
+            position: "top-center",
+          });
+        }
+      }
+      }
 
     const handleClose = (e) =>{
         if(e.target.id === 'wrapper') onClose();
     }
 
     var loadFile = function(event) {   
+      setPostImage(event.target.files[0])
       // var input = event.target;
       // var file = input.files[0];
       // var type = file.type;
@@ -30,14 +69,14 @@ const PostModal = ({ isVisible, onClose }) => {
           x
         </button>
         <div className="bg-white p-2 rounded">
-          <form className="m-3" onSubmit="">
-            <label for="modal" className="flex justify-center">
-              Add Post
+          <form className="m-3" onSubmit={handleSubmit}>
+            <label htmlFor="modal" className="flex justify-center">
+              {postID} ? Upload Post : Add Post
             </label>
             <div>
               <label
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                for="file_input"
+                htmlFor="file_input"
               >
                 Upload Image
               </label>
@@ -54,18 +93,20 @@ const PostModal = ({ isVisible, onClose }) => {
             <div className="relative my-5" data-te-input-wrapper-init>
               <input
                 type="text"
+                value={caption}
+                onChange={(e) => setCaption(e.target.value)}
                 className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
-                placeholder="Default input"
+                placeholder="Write Caption"
               />
               <label
-                for="exampleFormControlInpu3"
+                htmlFor="exampleFormControlInpu3"
                 className="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
               >
                 Write Something..
               </label>
             </div>
             <button
-              type="button"
+              type="submit"
               data-te-ripple-init
               data-te-ripple-color="light"
               className="inline-flex items-center rounded bg-gray-600 px-6 pb-2 pt-2 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"

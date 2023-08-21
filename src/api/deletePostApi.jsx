@@ -1,11 +1,28 @@
-import React from 'react'
+import axios from "axios"
+import { BASE_URL } from "../utils/constants"
 
-const deletePostApi = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+const deletePostApi = async (postId,fetchData) => {
+  try{
+    const accessToken = localStorage.getItem('access_token');
+    const response = await axios.delete(`${BASE_URL}/posts/${postId}`,{
+      headers: {
+        Accept:'application/json',
+        Authorization : `Bearer ${accessToken}`, 
+      },
+    })
+    if(response.status === 200){
+        console.log('item deleted.!');
+        if(fetchData){
+          fetchData();
+        }
+      }
+      else{
+        console.log(response.error);
+      }
+  }
+  catch(error){
+    console.log(error);
+  }
+};
 
 export default deletePostApi

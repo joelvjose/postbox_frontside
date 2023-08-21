@@ -1,11 +1,27 @@
-import React from 'react'
+import axios from 'axios'
+import {BASE_URL} from '../utils/constants'
 
-const PostListAPI = () => {
-  return (
-    <div>
-      
-    </div>
-  )
+const postListApi = async () => {
+  try{
+    const accessToken = localStorage.getItem('access_token');
+    const response = await axios.get(`${BASE_URL}/post/`, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    if  (response.status === 200) {
+        console.log(response.data);
+        return response.data;
+    } else {
+        console.log(response.error)
+    }
+    console.log(response.data);
+  }
+  catch(error){
+    console.error(error);
+  }
 }
 
-export default PostListAPI
+export default postListApi
