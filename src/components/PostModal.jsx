@@ -6,6 +6,7 @@ import UpdatePostApi from '../api/UpdatePostApi'
 
 const PostModal = ({ isVisible, onClose, postID }) => {
 
+
     const[postImage,setPostImage] = useState()
     const [caption,setCaption] = useState("")
 
@@ -48,9 +49,6 @@ const PostModal = ({ isVisible, onClose, postID }) => {
 
     var loadFile = function(event) {   
       setPostImage(event.target.files[0])
-      // var input = event.target;
-      // var file = input.files[0];
-      // var type = file.type;
       var output = document.getElementById('preview_img');
       output.src = URL.createObjectURL(event.target.files[0]);
       output.onload = function() {
@@ -58,6 +56,7 @@ const PostModal = ({ isVisible, onClose, postID }) => {
       }
   };
 
+ 
   return (
     <div
       className="z-10 fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center"
@@ -70,8 +69,8 @@ const PostModal = ({ isVisible, onClose, postID }) => {
         </button>
         <div className="bg-white p-2 rounded">
           <form className="m-3" onSubmit={handleSubmit}>
-            <label htmlFor="modal" className="flex justify-center">
-              {postID} ? Upload Post : Add Post
+            <label htmlFor="modal" className="flex justify-center font-bold ">
+              {postID ? 'Update Post' : 'Add Post'}
             </label>
             <div>
               <label

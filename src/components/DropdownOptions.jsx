@@ -10,8 +10,6 @@ const DropdownOptions = ({post,handleDeletePost, handleUpdatePost,handleReportPo
   const handleClick =()=>{
     setShow(!show);
   };
-  console.log('post'+post?.author?.email);
-  console.log('user'+user?.email);
 
   const menuOpt = post?.author?.email === user?.email ? [{ label: 'Delete' }, { label: 'Update' }] : [{ label: 'Report' }];
   // const menuOpt = [{ label: 'Delete' }, { label: 'Update' }]
@@ -32,10 +30,13 @@ const DropdownOptions = ({post,handleDeletePost, handleUpdatePost,handleReportPo
           className='block cursor-pointer p-2 hover:bg-gray-100'
           onClick={()=>{
             if(menu.label === 'Delete'){
+              handleDeletePost(post.id);
               handleClick();
             }else if(menu.label === 'Update'){
+              handleUpdatePost(post.id);
               handleClick();
             }else if(menu.label === 'Report'){
+              handleReportPost(post.id);
               handleClick();
             }
           }}>

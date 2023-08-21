@@ -6,6 +6,7 @@ import { toast } from 'react-toastify'
 import postListApi from '../api/postListApi'
 import deletePostApi from '../api/deletePostApi'
 import reportPostApi from '../api/reportPostApi'
+import likePostApi from '../api/likePostApi'
 
 import PostModal from '../components/PostModal'
 import Layout from '../components/Layout'
@@ -47,7 +48,6 @@ const HomePage = () => {
 
 
   const handleDeletePost = async (postId)=>{
-    console.log(postId);
     try{
       await deletePostApi(postId,fetchData)
       toast.success('Post Deleted Sucessfully.!',{
@@ -74,8 +74,21 @@ const HomePage = () => {
   };
 
   const handleUpdatePost = (postId) => {
-    setShowPostModal(true);
     setPostId(postId); 
+    setShowPostModal(true);
+  };
+
+  const toggleLikePost = async (postId) => {
+    try {
+      await likePostApi(postId, fetchData);
+      toast.success("Post Like toggled successfully!", {
+        position: "top-center",
+      });
+    } catch (error) {
+      toast.error("Failure, Post not Liked!", {
+        position: "top-center",
+      });
+    }
   };
 
   if(!isAuthenticated && !loading && user === null){
@@ -86,9 +99,10 @@ const HomePage = () => {
     setShowPostModal(false)
   }
 
+
   return (
     <Layout title="Postbox | Home" content="Home page">
-      <PostModal isVisible={showPostModal} onClose={closePostModal} />
+      <PostModal isVisible={showPostModal} onClose={closePostModal} postID={postId} />
       <div className="mt-10">
         {posts ? posts.map((post)=>(
         <div key={post.id} className="block rounded-lg w-11/12 lg:w-4/6 min-w-min mx-auto mt-3 gap-4 p-2 text-[#252525] shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] bg-white">
@@ -120,11 +134,29 @@ const HomePage = () => {
           </div>
           <div className="p-6">
             <div className="flex flex-row gap-4">
-              <span className="material-symbols-outlined">favorite</span>
+            {post.likes.includes(user.id)?(
+              <button
+              className='inline-block px-6 pb-2 pt-2.5 text-xs font-medium leading-normal'
+              type='button'
+              data-te-ripple-init
+              data-te-ripple-color='light'
+              onClick={()=>{toggleLikePost(post.id, true)}}>
+                <span className="material-symbols-outlined">favorite</span>
+              </button>
+            ):(
+              <button
+              className='inline-block bg-red-700 px-6 pb-2 pt-2.5 text-xs font-medium leading-normal'
+              type='button'
+              data-te-ripple-init
+              data-te-ripple-color='light'
+              onClick={()=>{toggleLikePost(post.id, true)}}>
+                <span className="material-symbols-outlined">favorite</span>
+              </button>
+            )}
               <span className="material-symbols-outlined">chat_bubble</span>
               <span className="material-symbols-outlined">share</span>
             </div>
-            <span>123 likes</span>
+            <p>{post.likes_count ?? 0}&nbsp;likes</p>
             <div>
               <p className="text-left  font-normal mb-4 text-md">
                 <span className="inline mr-2 font-semibold">{post.author.username}</span>{post.body}
