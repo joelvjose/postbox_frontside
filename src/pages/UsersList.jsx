@@ -58,7 +58,7 @@ const UsersList = () => {
             <thead className="bg-gray-700">
               <tr className="">
                 <th className="px-4 py-2  text-white ">Image</th>
-                <th className="px-4 py-2  text-white">Username</th>
+                <th className="px-4 py-2  text-white ">Username</th>
                 <th className="px-4 py-2  text-white ">Email</th>
                 <th className="px-4 py-2  text-white ">Name</th>
                 <th className="px-4 py-2  text-white ">Action</th>
