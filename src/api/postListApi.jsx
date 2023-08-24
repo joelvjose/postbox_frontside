@@ -12,7 +12,7 @@ const postListApi = async () => {
       },
     });
     if  (response.status === 200) {
-        console.log(response.data);
+        console.log('homepage',response.data);
         return response.data;
     } else {
         console.log(response.error)

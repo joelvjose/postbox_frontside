@@ -12,6 +12,8 @@ import HomePage from './pages/HomePage';
 import AdminLogin from './pages/AdminLogin';
 import ErrorPage from './pages/ErrorPage';
 import AdminDashboard from './pages/AdminDashboard';
+import UsersList from './pages/UsersList';
+import ProfilePage from './pages/ProfilePage';
 
 function App() {
 
@@ -29,9 +31,12 @@ function App() {
           <Route path ='/admin-login' element={<AdminLogin/>} />
           <Route path ='/register' element = {<RegisterPage/>} />
           <Route path ='/home' element = {<HomePage/>} />
+          <Route path ='/profile/:email' element={< ProfilePage/>} />
 
           <Route path ='/404-error' element={<ErrorPage/>} />
           <Route path ='/admin-dashboard' element={<AdminDashboard/>} />
+          <Route path ='/users' element={<UsersList/>} />
+
           <Route path ='*' element={<ErrorPage/>} />
         </Routes>
       </Router>

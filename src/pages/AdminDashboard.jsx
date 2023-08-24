@@ -1,23 +1,14 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 
-import ErrorPage from './ErrorPage'
-import AdminNavBar from '../components/AdminNavBar'
+import AdminLayout from '../components/AdminLayout'
 
 const AdminDashboard = () => {
 
-    const {isSuperuser } = useSelector(state=>state.user) 
 
   return (
-    <>
-    {isSuperuser?(
-    <div className='flex'>
-      <AdminNavBar/>
-    </div>
-    ):(
-        <ErrorPage />
-    )}
-    </>
+    <AdminLayout title="Admin | Dashboard" content="Dashboard">
+      
+    </AdminLayout>
   )
 }
 

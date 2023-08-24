@@ -16,7 +16,7 @@ const AdminNavBar = () => {
     }
 
   return (
-    <div className="h-screen w-1/5 fixed px-10 bg-blue-950 drop-shadow-xl border">
+    <div className="h-screen w-1/5 fixed px-10 bg-gray-800 drop-shadow-xl border">
       <div className='px-2 py-8 flex items-center justify-center border-b-2 border-gray-100'>
         <h1 className='text-white text-[20px] leading-[25px] font-extrabold cursor-pointer '> Admin Panel </h1>
       </div>
@@ -33,10 +33,6 @@ const AdminNavBar = () => {
         <div className='flex items-center gap-2 py-1 '>
             <span className="material-symbols-outlined text-white">group</span>
             <NavLink to='/users' className='text-sm leading-5 font-bold text-white'>Users</NavLink>
-        </div>
-        <div className='flex items-center gap-4 py-2 '>
-            <span className="material-symbols-outlined text-white">person_alert</span>
-            <NavLink to='/posts' className='text-sm leading-5 font-bold text-white'>Reported Users</NavLink>
         </div>
       </div>
       <div className='py-2 border-b-2  border-[#EDEDED]/[0.3]'>

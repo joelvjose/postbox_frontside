@@ -9,8 +9,10 @@ import PostModal from './PostModal'
 const NavBar = () => {
 
   const [show,setShow] = useState(false);
-  const { user } = useSelector(state=>state.user);
+  const { user,isAuthenticated } = useSelector(state=>state.user);
   const dispatch = useDispatch();
+
+  const email = isAuthenticated ? user?.email : "";
 
   const handleLogout=()=>{
     dispatch(logout());
@@ -28,7 +30,7 @@ const NavBar = () => {
     <>
       <div className="bg-white  h-screen fixed px-12 border drop-shadow-xl">
         <div className="px-2 py-4 flex flex-col items-center justify-center border-b-2 border-gray-200">
-          <img className="h-16 " src="post box.png" alt="postbox_logo" />
+          <img className="h-16 " src="/post box.png" alt="/postbox_logo" />
           <img
             className="mt-4 w-20 rounded-full"
             src={`${BASE_URL}${user?.display_pic}`}
@@ -78,7 +80,7 @@ const NavBar = () => {
         </div>
         <div className="flex items-center gap-4 py-4 border-b-2  border-gray-200">
         <span className="material-symbols-outlined">account_circle</span>
-          <NavLink to="/adminprofile" className="text-sm leading-5 font-normal">
+          <NavLink to={`/profile/${email}`} className="text-sm leading-5 font-normal">
             Profile
           </NavLink>
         </div>

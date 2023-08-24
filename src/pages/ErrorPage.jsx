@@ -1,10 +1,14 @@
 import React from 'react'
 import { Helmet,HelmetProvider } from 'react-helmet-async'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+
+import Loading from '../components/Loading'
+
 
 const ErrorPage = () => {
 
-    
+    const { loading } = useSelector(state=>state.user)
 
   return (
     <HelmetProvider>
@@ -12,7 +16,10 @@ const ErrorPage = () => {
             <title>'Postbox | 404 ErrorPage'</title>
             <meta name='description' content='User login' />
     </Helmet>
-    <div className="lg:px-24 lg:py-24 md:py-20 md:px-44 px-4 py-24 items-center flex justify-center flex-col-reverse lg:flex-row md:gap-28 gap-16">
+    {loading ? (
+      <Loading />
+    ):(
+        <div className="lg:px-24 lg:py-24 md:py-20 md:px-44 px-4 py-24 items-center flex justify-center flex-col-reverse lg:flex-row md:gap-28 gap-16">
             <div className="xl:pt-24 w-full xl:w-1/2 relative pb-12 lg:pb-0">
                 <div className="relative">
                     <div className="absolute">
@@ -34,7 +41,9 @@ const ErrorPage = () => {
                 <img src="https://i.ibb.co/ck1SGFJ/Group.png" alt="plug" />
             </div>
         </div>
-        </HelmetProvider>
+         )}
+    </HelmetProvider>
+       
   )
 }
 
