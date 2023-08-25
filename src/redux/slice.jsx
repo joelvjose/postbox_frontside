@@ -115,7 +115,7 @@ export const checkAuth = createAsyncThunk(
             dispatch(getUser());
             return data;
         } else if (res.status === 401) {
-            const { dispatch } = thunkAPI;
+            const { dispatch } = thunkAPI;  
             await dispatch(updateToken());
             const updateTokenResult = thunkAPI.getState().userSlice;
             if (updateTokenResult.isAuthenticated) {

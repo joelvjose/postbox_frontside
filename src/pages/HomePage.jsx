@@ -11,10 +11,12 @@ import likePostApi from '../api/likePostApi'
 import PostModal from '../components/PostModal'
 import Layout from '../components/Layout'
 import DropdownOptions from '../components/DropdownOptions'
+import PostDetailModal from '../components/PostDetailModal'
  
 const HomePage = () => {
 
   const [showPostModal,setShowPostModal] = useState(false)
+  const [showPostDetailModal,setShowPostDetailModal] = useState(false)
   const [posts, setPosts] = useState([]);
   const [postId, setPostId] = useState();
   const { loading,isAuthenticated,user } = useSelector(state=>state.user)
@@ -94,11 +96,14 @@ const HomePage = () => {
 
   const closePostModal=()=>{
     setShowPostModal(false)
+    setShowPostDetailModal(false)
   }
+
 
   return (
     <Layout title="Postbox | Home" content="Home page">
       <PostModal isVisible={showPostModal} onClose={closePostModal} postID={postId} />
+      <PostDetailModal isVisible={showPostDetailModal} onClose={closePostModal} postID={postId} />
       <div className="mt-10">
         {posts ? posts.map((post)=>(
         <div key={post.id} className="block rounded-lg w-11/12 lg:w-4/6 min-w-min mx-auto mt-3 gap-4 p-2 text-[#252525] shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] bg-white">
@@ -122,7 +127,7 @@ const HomePage = () => {
             </div>
             <div className='border-b-2  border-gray-100'>
               <img
-                className="rounded-lg mx-auto my-3 h-96"
+                className="rounded-lg mx-auto my-3 h-96 border-2"
                 src={post.img}
                 alt="post_image"
               />
@@ -150,7 +155,15 @@ const HomePage = () => {
                 <span className="material-symbols-outlined" >favorite</span>
               </button>
             )}
-              <span className="material-symbols-outlined">chat_bubble</span>
+            <button
+              className='inline-block p-0 text-xs font-medium leading-normal'
+              type='button'
+              data-te-ripple-init
+              data-te-ripple-color='light'
+              onClick={()=>{setShowPostDetailModal(true)}}>
+                <span className="material-symbols-outlined">chat_bubble</span>
+              </button>
+              
               <span className="material-symbols-outlined">share</span>
             </div>
             <p>{post.likes_count ?? 0}&nbsp;likes</p>
