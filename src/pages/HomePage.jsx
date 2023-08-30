@@ -99,6 +99,10 @@ const HomePage = () => {
     setShowPostDetailModal(false)
   }
 
+  const showPostDetail=(postId)=>{
+    setPostId(postId)
+    setShowPostDetailModal(true)
+  }
 
   return (
     <Layout title="Postbox | Home" content="Home page">
@@ -160,7 +164,7 @@ const HomePage = () => {
               type='button'
               data-te-ripple-init
               data-te-ripple-color='light'
-              onClick={()=>{setShowPostDetailModal(true)}}>
+              onClick={()=>{showPostDetail(post.id)}}>
                 <span className="material-symbols-outlined">chat_bubble</span>
               </button>
               
