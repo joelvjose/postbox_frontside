@@ -12,6 +12,7 @@ import PostModal from '../components/PostModal'
 import Layout from '../components/Layout'
 import DropdownOptions from '../components/DropdownOptions'
 import PostDetailModal from '../components/PostDetailModal'
+import Loading from '../components/Loading'
  
 const HomePage = () => {
 
@@ -106,6 +107,10 @@ const HomePage = () => {
 
   return (
     <Layout title="Postbox | Home" content="Home page">
+      {loading?(
+        <Loading />
+      ):(
+<>
       <PostModal isVisible={showPostModal} onClose={closePostModal} postID={postId} />
       <PostDetailModal isVisible={showPostDetailModal} onClose={closePostModal} postID={postId} />
       <div className="mt-10">
@@ -180,6 +185,8 @@ const HomePage = () => {
         </div>
         )):<h1 className='flex justify-center align-middle'>Nothing to show here..!</h1>}
       </div>
+      </>
+       )}
     </Layout>
   );
 }

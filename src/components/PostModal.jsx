@@ -16,11 +16,12 @@ const PostModal = ({ isVisible, onClose, postID }) => {
       e.preventDefault();
       if(postID){
         try{
-          await UpdatePostApi(postID, caption, postImage);
           onClose();
+          await UpdatePostApi(postID, caption, postImage);
           toast.success('Post Updated successfully!', {
             position: "top-center",
           });
+          setCaption('')
         }
         catch (error) {
           toast.error('Failure, Post not Update!', {
@@ -29,11 +30,12 @@ const PostModal = ({ isVisible, onClose, postID }) => {
         }
       }else{
         try{
-          await createPostApi(caption,postImage);
           onClose();
+          await createPostApi(caption,postImage);
           toast.success('Post Created successfully!', {
             position: "top-center",
           });
+          setCaption('')
         }
         catch (error) {
           toast.error('Failure, Post not Created!', {
