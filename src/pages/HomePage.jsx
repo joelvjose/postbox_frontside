@@ -7,6 +7,7 @@ import postListApi from '../api/postListApi'
 import deletePostApi from '../api/deletePostApi'
 import reportPostApi from '../api/reportPostApi'
 import likePostApi from '../api/likePostApi'
+import followUserApi from '../api/followUserApi'
 
 import PostModal from '../components/PostModal'
 import Layout from '../components/Layout'
@@ -36,7 +37,7 @@ const HomePage = () => {
     if (user) {
       fetchData();
     } 
-  }, [user]);
+  }, [user,showPostModal,showPostDetailModal]);
 
 // to 
   const fetchData = async () => {
@@ -91,6 +92,17 @@ const HomePage = () => {
     }
   };
 
+  const handleToggleFollow = async (userId)=>{
+    try{
+      await followUserApi(userId,fetchData);
+    }
+    catch(error){
+      toast.error('Cannot follow user',{
+        position:"top-center",
+      });
+    }
+  };
+
   if(!isAuthenticated && !loading && user === null){
     return <Navigate to='/' />
   }
@@ -129,8 +141,36 @@ const HomePage = () => {
                   alt="user_image"
                 />
                 <NavLink to={`/profile/${post.author.email}`} className="mb-2 ms-2 mt-2 text-md font-bold cursor-pointer leading-tight text-[#262626]" >
-                  {post.author.username}<span className='font-xs font-mono font-extralight ml-2 text-sm text-gray-400'> {post.created_time} ago</span>
+                  {post.author.username}
                 </NavLink>
+                  {post.author.email !== user.email &&
+                  (post.followers && post.followers.some(
+                    (follower) => follower.follower === user.email
+                  ) ? (
+                  <button type='button'
+                  className='inline-block bg-transparent justify-start leading-normal'
+                  data-te-ripple-init
+                  data-te-ripple-color="light"
+                  title={`unfollow ${post.author.username}`}
+                  onClick={() => handleToggleFollow(post.author.id)}
+                  >
+                    <span className='text-blue-500 text-sm font-medium p-2 font-mono'>Unfollow</span>
+                  </button>
+                  ):(
+                  <button type='button'
+                  className='inline-block bg-transparent justify-start leading-normal'
+                  data-te-ripple-init
+                  data-te-ripple-color="light"
+                  title={`follow ${post.author.username}`}
+                  onClick={() => handleToggleFollow(post.author.id)}
+                  >
+                    <span className='text-blue-500 text-sm font-medium p-2 font-mono'>Follow</span>
+                  </button>
+                  ))}
+                  
+                  <span className='font-xs font-mono font-extralight ml-2 text-sm text-gray-400'> {post.created_time} ago</span>
+                
+                
               </div>
               <DropdownOptions post={post} handleDeletePost={handleDeletePost} handleUpdatePost={handleUpdatePost} handleReportPost={handleReportPost} />
             </div>
@@ -172,8 +212,6 @@ const HomePage = () => {
               onClick={()=>{showPostDetail(post.id)}}>
                 <span className="material-symbols-outlined">chat_bubble</span>
               </button>
-              
-              <span className="material-symbols-outlined">share</span>
             </div>
             <p>{post.likes_count ?? 0}&nbsp;likes</p>
             <div>

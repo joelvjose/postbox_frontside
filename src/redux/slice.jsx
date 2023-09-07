@@ -201,7 +201,7 @@ const userSlice = createSlice({
             state.loading = true;
           })
           .addCase(login.fulfilled, (state, action) => {
-            state.loading = false;
+            // state.loading = false;
             state.isAuthenticated = true;
             state.isSuperuser = jwt_decode(action.payload.access).is_superuser;
             // state.accessToken = action.payload.access;

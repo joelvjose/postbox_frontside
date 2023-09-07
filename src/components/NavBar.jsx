@@ -65,7 +65,7 @@ const NavBar = () => {
         </div>
         <div className="flex items-center gap-4 py-4 border-b-2  border-gray-200">
         <span className="material-symbols-outlined">explore</span>
-          <NavLink to="/adminprofile" className="text-sm leading-5 font-normal">
+          <NavLink to="/home" className="text-sm leading-5 font-normal">
             Explore
           </NavLink>
         </div>
