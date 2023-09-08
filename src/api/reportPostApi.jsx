@@ -5,9 +5,9 @@ const reportPostApi = async (postId,fetchData) => {
 try{
     let accessToken = localStorage.getItem('access_token');
     
-        const response= await axios.post(`${BASE_URL}/post/report/${postId}/`, null, {
-            headers:{
-                Accept :'appilication/json',
+        const response= await axios.post(`${BASE_URL}/post/report/${postId}/`, {}, {
+            headers: {
+                Accept :'application/json',
                 Authorization :`Bearer ${accessToken}`
             },
         });

@@ -8,11 +8,12 @@ const UpdateUserDetailApi = async (formVal,displayPic) => {
         if (displayPic) formData.append('display_pic', displayPic);
         
         const response = await axiosInstance({
-          url: `/post/user-profile/`,
+          url: '/user-update/',
           method: "POST",
           data:formData,
         });
-        if (response.status === 200) {
+
+        if (response.status === 200) {  
           return response.data;
         } else {
           return response.error;

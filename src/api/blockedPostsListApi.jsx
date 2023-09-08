@@ -1,10 +1,10 @@
-// list posts for login users
+// Api call for admin to see all blocked
 import axiosInstance from '../utils/axiosInstance';
 
-const postListApi = async () => {
+const blockedPostsListApi  = async () => {
   try {
     const response = await axiosInstance({
-      url: "/post/home/",
+      url: "/blockedposts/",
       method: "GET",
     });
     if (response.status === 200) {
@@ -19,5 +19,8 @@ const postListApi = async () => {
   }
 };
 
-export default postListApi
+export default blockedPostsListApi
+
+
+
 

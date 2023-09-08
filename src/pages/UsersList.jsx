@@ -66,16 +66,19 @@ const UsersList = () => {
             </thead>
 
             <tbody>
-              {users.map((item) => (
+              {users?.map((item) => (
                 <tr key={item.id} className="bg-gray-100 text-center ">
                   <td className=" flex justify-center px-4 py-2 "><img className='w-16 h-16 rounded-full' alt={item.username} src={`${BASE_URL}${item.display_pic}`}/></td>
                   <td className=" px-4 py-2 ">{item.username}</td>
                   <td className="px-4 py-2 ">{item.email}</td>
                   <td className="px-4 py-2 ">{item.first_name} {item.last_name}</td>
                   <td className="px-4 py-2 ">
-                    <button className="bg-gray-500 rounded-md p-2 text-white font-bold hover:bg-red-600 relative" onClick={() => blockUser(item.id)}>
-                        {item.is_active ? 'Block' : 'unblock'}
-                    </button>
+                    
+                  {item.is_active ? (
+                  <button className="bg-gray-500 rounded-md p-2 text-white font-bold hover:bg-red-600 relative" onClick={() => blockUser(item.id)}>Block</button>
+                  ) : (
+                  <button className="bg-gray-500 rounded-md p-2 text-white font-bold hover:bg-green-600 relative" onClick={() => blockUser(item.id)}>unblock</button>
+                  )}     
                   </td>
                 </tr>
                ))} 

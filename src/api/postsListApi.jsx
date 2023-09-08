@@ -1,10 +1,10 @@
-// list posts for login users
+// Api call for admin to see all posts
 import axiosInstance from '../utils/axiosInstance';
 
-const postListApi = async () => {
+const postsListApi = async () => {
   try {
     const response = await axiosInstance({
-      url: "/post/home/",
+      url: "/postslist/",
       method: "GET",
     });
     if (response.status === 200) {
@@ -19,5 +19,4 @@ const postListApi = async () => {
   }
 };
 
-export default postListApi
-
+export default postsListApi

@@ -14,6 +14,10 @@ import ErrorPage from './pages/ErrorPage';
 import AdminDashboard from './pages/AdminDashboard';
 import UsersList from './pages/UsersList';
 import ProfilePage from './pages/ProfilePage';
+import ExplorePage from './pages/ExplorePage';
+import PostsLists from './pages/PostsLists';
+import ReportedPostsList from './pages/ReportedPostsList';
+import BlockedPostsList from './pages/BlockedPostsList';
 
 function App() {
 
@@ -32,10 +36,14 @@ function App() {
           <Route path ='/register' element = {<RegisterPage/>} />
           <Route path ='/home' element = {<HomePage/>} />
           <Route path ='/profile/:email' element={< ProfilePage/>} />
+          <Route path ='/explore' element={<ExplorePage/>} />
 
           <Route path ='/404-error' element={<ErrorPage/>} />
           <Route path ='/admin-dashboard' element={<AdminDashboard/>} />
           <Route path ='/users' element={<UsersList/>} />
+          <Route path ='/posts-lists' element={<PostsLists/>} />
+          <Route path ='/blocked-posts' element={<BlockedPostsList/>} />
+          <Route path ='/reported-posts' element={<ReportedPostsList/>} />
 
           <Route path ='*' element={<ErrorPage/>} />
         </Routes>

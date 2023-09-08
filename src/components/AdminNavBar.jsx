@@ -39,15 +39,15 @@ const AdminNavBar = () => {
         <h3 className='text-white text-xs font-mono'>MANAGE</h3>
         <div className='flex items-center gap-4 py-2'>
             <span className="material-symbols-outlined text-white">mark_as_unread</span>
-            <NavLink to='/users' className='text-sm leading-5 font-bold text-white'>Posts</NavLink>
+            <NavLink to='/posts-lists' className='text-sm leading-5 font-bold text-white'>Posts</NavLink>
         </div>
         <div className='flex items-center gap-4 py-2'>
             <span className="material-symbols-outlined text-white">outgoing_mail</span>
-            <NavLink to='/posts' className='text-sm leading-5 font-bold text-white'>Reported Post</NavLink>
+            <NavLink to='/reported-posts' className='text-sm leading-5 font-bold text-white'>Reported Post</NavLink>
         </div>
         <div className='flex items-center gap-4 py-2'>
             <span className="material-symbols-outlined text-white">mail_lock</span>
-            <NavLink to='/posts' className='text-sm leading-5 font-bold text-white'>Blocked Post</NavLink>
+            <NavLink to='/blocked-posts' className='text-sm leading-5 font-bold text-white'>Blocked Post</NavLink>
         </div>
       </div>
       <div className='flex items-center gap-4 py-4 border-b-2  border-[#EDEDED]/[0.3]'>

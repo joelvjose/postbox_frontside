@@ -1,10 +1,11 @@
+
 // list posts for login users
 import axiosInstance from '../utils/axiosInstance';
 
-const postListApi = async () => {
+const postListAllApi = async () => {
   try {
     const response = await axiosInstance({
-      url: "/post/home/",
+      url: "/post/explore",
       method: "GET",
     });
     if (response.status === 200) {
@@ -19,5 +20,5 @@ const postListApi = async () => {
   }
 };
 
-export default postListApi
+export default postListAllApi
 

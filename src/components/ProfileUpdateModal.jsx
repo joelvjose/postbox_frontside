@@ -1,13 +1,16 @@
-import React,{useEffect,useState} from 'react'
-import { useSelector } from 'react-redux'
+import React,{useState} from 'react'
+import { useSelector,useDispatch } from 'react-redux'
 import { toast } from 'react-toastify';
 import UpdateUserDetailApi from '../api/UpdateUserDetailApi'
 import { BASE_URL } from '../utils/constants';
+import { getUser } from '../redux/slice'
 
 const ProfileUpdateModal = ({ isVisible, onClose }) => {
 
     const { user }=useSelector(state=>state.user);
+    const dispatch = useDispatch()
     const [displayPic,setDisplayPic] = useState(null)
+    
     const [formData,setFormData] = useState({
         username:user?.username,
         first_name:user?.first_name,
@@ -28,18 +31,20 @@ const ProfileUpdateModal = ({ isVisible, onClose }) => {
         if(e.target.id === 'wrapper') onClose();
     }
 
-        const handleSubmit = async(e) =>{
+    const handleSubmit = async(e) =>{
         e.preventDefault();
         try{
             await UpdateUserDetailApi(formData,displayPic);
-            onclose();
             toast.success('User details updated successfully!', {
                 position: "top-center",
               });
+              dispatch(getUser());
+              onClose();
         }catch (error) {
-            toast.error('Failure, Post not Updated!', {
+            toast.error('Failure, User details not Updated!', {
               position: "top-center",
             });
+            onClose();
       }
   };
 
@@ -68,7 +73,7 @@ const ProfileUpdateModal = ({ isVisible, onClose }) => {
               Update User Details
             </label>
             <div className="shrink-0 flex justify-center">
-                    <img id='preview_img' className="border-b-2 w-36 object-cover rounded-full my-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]" src={`${BASE_URL}`+display_pic} alt="Current" />
+                    <img id='preview_img' className="border-b-2 w-36 h-36 object-cover rounded-full my-2 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]" src={`${BASE_URL}`+display_pic} alt="Current" />
             </div>
             <div>
               <label
@@ -86,11 +91,23 @@ const ProfileUpdateModal = ({ isVisible, onClose }) => {
             </div>
               <div>
                   <label htmlFor="firstname" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
-                  <input value={first_name} type="text" id="firstname" className="block w-full p-2  text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                  <input 
+                  type="text" 
+                  id="firstname" 
+                  className="block w-full p-2  text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  value={first_name}
+                  name='first_name'
+                  onChange={onChange}/>
               </div>
               <div>
                   <label htmlFor="lastname" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
-                  <input value={last_name} type="text" id="astname" className="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                  <input 
+                  value={last_name}
+                  name='last_name'
+                  onChange={onChange} 
+                  type="text" id="astname" 
+                  className="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  />
               </div>
               <div>
                   <label htmlFor="E-mail" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email Address</label>

@@ -1,9 +1,10 @@
+
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { NavLink, Navigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
-import postListApi from '../api/postListApi'
+import postListAllApi from '../api/postListAllApi'
 import deletePostApi from '../api/deletePostApi'
 import reportPostApi from '../api/reportPostApi'
 import likePostApi from '../api/likePostApi'
@@ -14,10 +15,9 @@ import Layout from '../components/Layout'
 import DropdownOptions from '../components/DropdownOptions'
 import PostDetailModal from '../components/PostDetailModal'
 import Loading from '../components/Loading'
-import { BASE_URL } from '../utils/constants'
 
- 
-const HomePage = () => {
+
+const ExplorePage = () => {
 
   const [showPostModal,setShowPostModal] = useState(false)
   const [showPostDetailModal,setShowPostDetailModal] = useState(false)
@@ -29,7 +29,7 @@ const HomePage = () => {
   useEffect(()=>{
     const fetchData = async () => {
       try {
-        const data = await postListApi();
+        const data = await postListAllApi();
         setPosts(data);
       } catch (error) {
         console.error(error);
@@ -44,7 +44,7 @@ const HomePage = () => {
 // to 
   const fetchData = async () => {
     try {
-      const data = await postListApi();
+      const data = await postListAllApi();
       setPosts([]);
       setPosts(data);
     } catch (error) {
@@ -139,7 +139,7 @@ const HomePage = () => {
               <div className="flex items-center ">
                 <img
                   className="w-10 h-10 rounded-full"
-                  src={`${BASE_URL}${post.author.display_pic}`}
+                  src={post.author.display_pic}
                   alt="user_image"
                 />
                 <NavLink to={`/profile/${post.author.email}`} className="mb-2 ms-2 mt-2 text-md font-bold cursor-pointer leading-tight text-[#262626]" >
@@ -179,7 +179,7 @@ const HomePage = () => {
             <div className='border-b-2  border-gray-100'>
               <img
                 className="rounded-lg mx-auto my-3 h-96 border-2"
-                src={`${BASE_URL}${post.img}`}
+                src={post.img}
                 alt="post_image"
               />
             </div>
@@ -231,4 +231,4 @@ const HomePage = () => {
   );
 }
 
-export default HomePage
+export default ExplorePage
