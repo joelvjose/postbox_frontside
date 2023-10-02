@@ -15,6 +15,7 @@ import DropdownOptions from '../components/DropdownOptions'
 import PostDetailModal from '../components/PostDetailModal'
 import Loading from '../components/Loading'
 import { BASE_URL } from '../utils/constants'
+import createChatRoomApi from '../api/createChatRoomApi'
 
  
 const HomePage = () => {
@@ -28,7 +29,7 @@ const HomePage = () => {
   // to load available posts
   useEffect(()=>{
     const fetchData = async () => {
-      try {
+      try {   
         const data = await postListApi();
         setPosts(data);
       } catch (error) {
@@ -36,10 +37,10 @@ const HomePage = () => {
       }
     };
   
-    if (user) {
+    if (user && !loading ) {
       fetchData();
     } 
-  }, [user,showPostModal,showPostDetailModal]);
+  }, [user,showPostModal,showPostDetailModal,loading]);
 
 // to 
   const fetchData = async () => {
@@ -97,12 +98,14 @@ const HomePage = () => {
   const handleToggleFollow = async (userId)=>{
     try{
       await followUserApi(userId,fetchData);
+      await createChatRoomApi(userId);
     }
     catch(error){
       toast.error('Cannot follow user',{
         position:"top-center",
       });
     }
+    
   };
 
   if(!isAuthenticated && !loading && user === null){

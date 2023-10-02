@@ -80,9 +80,9 @@ const PostsLists = () => {
 
             <tbody >
               {posts?.map((item) => (
-                <tr data-te-toggle="tooltip" title="View post details" onClick={()=>{showPostDetail(item.id)}} key={item.id} className=" cursor-pointer bg-gray-100 text-center border-b-2" >
+                <tr data-te-toggle="tooltip" title="View post details" key={item.id} className=" cursor-pointer bg-gray-100 text-center border-b-2" >
                   <td className=" px-4 py-2 ">{item.author.username}</td>
-                  <td className=" flex justify-center px-4 py-2 "><img className='w-20  rounded-lg' alt={item.username} src={`${BASE_URL}${item.img}`}/></td>
+                  <td onClick={()=>{showPostDetail(item.id)}} className=" flex justify-center px-4 py-2 "><img className='w-20  rounded-lg' alt={item.username} src={`${BASE_URL}${item.img}`}/></td>
                   <td className="px-4 py-2 ">{item.body}</td>
                   <td className="px-4 py-2 ">{item.created_time} ago</td>
                   <td className="px-4 py-2 ">

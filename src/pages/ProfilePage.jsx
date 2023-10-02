@@ -7,6 +7,7 @@ import { BASE_URL } from '../utils/constants';
 import ProfileUpdateModal from '../components/ProfileUpdateModal';
 import PostDetailModal from '../components/PostDetailModal';
 import Loading from '../components/Loading';
+import Networkmodal from '../components/Networkmodal';
 
 import userPofileApi from '../api/userPofileApi';
 
@@ -19,6 +20,8 @@ const ProfilePage = () => {
   const [profile, setProfile] = useState(null);
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [showPostDetailModal,setShowPostDetailModal] = useState(false)
+  const [showNetworkModal,setShowNetworkModal] = useState(false)
+
 
   const param = useParams();
   const email = param.email;
@@ -48,6 +51,8 @@ const ProfilePage = () => {
     setShowPostDetailModal(true);
   }
 
+  
+
   return (
     <Layout title="Postbox | Profile" content="Profile page">
       {isLoading?(
@@ -55,6 +60,7 @@ const ProfilePage = () => {
       ):(
         <>
     <ProfileUpdateModal isVisible={showProfileModal} onClose={()=>setShowProfileModal(false)} />
+    <Networkmodal isVisible={showNetworkModal} onClose={()=>setShowNetworkModal(false)} />
     <PostDetailModal isVisible={showPostDetailModal} onClose={()=>setShowPostDetailModal(false)} postID={postId} />
       <section className="pt-16 bg-blueGray-50">
       <div className="w-full lg:w-11/12 px-4 mx-auto">
@@ -75,13 +81,17 @@ const ProfilePage = () => {
               <div className="w-full px-4 text-center mt-16">
                 <div className="flex justify-center py-4 lg:pt-4 pt-8">
                   <div className="mr-4 p-3 text-center">
-                    <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
+                    <span
+                    onClick={()=>{setShowNetworkModal(true)}} 
+                    className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
                     {profile?.follower_count ?? "0"}
                     </span>
                     <span className="text-sm text-blueGray-400">Followers</span>
                   </div>
                   <div className="mr-4 p-3 text-center">
-                    <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
+                    <span 
+                    onClick={()=>{setShowNetworkModal(true)}} 
+                    className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
                     {profile?.following_count ?? "0"}
                     </span>
                     <span className="text-sm text-blueGray-400">Following</span>

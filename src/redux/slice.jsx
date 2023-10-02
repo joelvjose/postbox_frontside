@@ -173,7 +173,8 @@ const INITIAL_STATE ={
     isAuthenticated:false,
     loading:false,
     registered:false,
-    isSuperuser: false,
+    isSuperuser : false,
+    // accessToken : null,
 
 }
 
@@ -214,9 +215,9 @@ const userSlice = createSlice({
             state.loading = true;
           })
           .addCase(getUser.fulfilled, (state, action) => {
-            state.loading = false;
-            state.user = action.payload;
-            state.isSuperuser = state.user.is_superuser
+              state.user = action.payload;
+              state.isSuperuser = state.user.is_superuser
+              state.loading = false;
           })
           .addCase(getUser.rejected, state => {
             state.loading = false;

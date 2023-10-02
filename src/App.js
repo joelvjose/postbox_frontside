@@ -18,6 +18,7 @@ import ExplorePage from './pages/ExplorePage';
 import PostsLists from './pages/PostsLists';
 import ReportedPostsList from './pages/ReportedPostsList';
 import BlockedPostsList from './pages/BlockedPostsList';
+import MessagePage from './pages/MessagePage';
 
 function App() {
 
@@ -37,6 +38,7 @@ function App() {
           <Route path ='/home' element = {<HomePage/>} />
           <Route path ='/profile/:email' element={< ProfilePage/>} />
           <Route path ='/explore' element={<ExplorePage/>} />
+          <Route path ='/messages' element={<MessagePage/>} />
 
           <Route path ='/404-error' element={<ErrorPage/>} />
           <Route path ='/admin-dashboard' element={<AdminDashboard/>} />

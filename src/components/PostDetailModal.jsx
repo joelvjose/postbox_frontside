@@ -119,7 +119,7 @@ const PostDetailModal = ({ isVisible, onClose, postID }) => {
                   </div>
                 </div>
                 <br />
-                <div className="space-x-4 border-b-2  border-gray-100">
+                <div className="space-x-4 border-b-2  border-gray-100 h-[400px] overflow-scroll">
                   <ul className="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
                     <label htmlFor="input-group-1" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Comments</label>
                     {comments ? comments.map((cmnt)=>(
