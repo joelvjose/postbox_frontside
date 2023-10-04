@@ -24,7 +24,7 @@ const UsersList = () => {
     const blockUser = async (id) => {
       const accessToken = localStorage.getItem('access_token');
       try {
-          const response = await fetch(`${BASE_URL}/blockuser/${id}`, {
+          const response = await fetch(`${BASE_URL}/api/blockuser/${id}`, {
             method:'GET',
             headers:{
               Accept: 'application/json',

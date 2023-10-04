@@ -6,7 +6,7 @@ const userPofileApi = async (email) => {
     try {
         const accessToken = localStorage.getItem('access_token');
     
-        const response = await axios.get(`${BASE_URL}/post/profile/${email}/`, {
+        const response = await axios.get(`${BASE_URL}/api/post/profile/${email}/`, {
           headers: {
             Accept: 'application/json',
             Authorization: `Bearer ${accessToken}`,

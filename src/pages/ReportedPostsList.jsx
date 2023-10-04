@@ -29,7 +29,7 @@ const ReportedPostsList = () => {
     const blockPost = async (id) => {
       const accessToken = localStorage.getItem('access_token');
       try {
-          const response = await fetch(`${BASE_URL}/blockpost/${id}/`, {
+          const response = await fetch(`${BASE_URL}/api/blockpost/${id}/`, {
             method:'GET',
             headers:{
               Accept: 'application/json',

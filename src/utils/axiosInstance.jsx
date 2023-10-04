@@ -5,7 +5,7 @@ const accessToken = localStorage.getItem('access_token');
 // const {accessToken} = useSelector(state=>state.user)
 
 const axiosInstance = axios.create({
-	baseURL: 'http://127.0.0.1:8000',
+	baseURL: 'http://127.0.0.1:8000/api',
 	headers: {
 		Accept: 'application/json',
 		Authorization: `Bearer ${accessToken}`,
