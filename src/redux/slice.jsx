@@ -14,7 +14,7 @@ export const register = createAsyncThunk(
             password
         })
         try {
-            const response = await fetch(`${BASE_URL}/register/`, {
+            const response = await fetch(`${BASE_URL}/api/register/`, {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -41,7 +41,7 @@ export const getUser = createAsyncThunk(
     async (_, thunkAPI) => {
     const accessToken = localStorage.getItem('access_token');
     try {
-        const response = await fetch(`${BASE_URL}/users/me/`, {
+        const response = await fetch(`${BASE_URL}/api/users/me/`, {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
