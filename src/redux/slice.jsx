@@ -4,7 +4,6 @@ import { BASE_URL } from '../utils/constants'
 import jwt_decode from 'jwt-decode'
 
 
-
 export const register = createAsyncThunk(
 	'users/register',
 	async ({ username, email, password }, thunkAPI) => {
@@ -185,6 +184,7 @@ const userSlice = createSlice({
         resetRegistered: state => {
 			state.registered = false;
         },
+        
     },
     extraReducers : builder=>{
         builder

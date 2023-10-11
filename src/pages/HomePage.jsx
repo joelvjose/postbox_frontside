@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import {  useSelector } from 'react-redux'
 import { NavLink, Navigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
@@ -24,27 +24,32 @@ const HomePage = () => {
   const [showPostDetailModal,setShowPostDetailModal] = useState(false)
   const [posts, setPosts] = useState([]);
   const [postId, setPostId] = useState();
-  const { loading,isAuthenticated,user } = useSelector(state=>state.user)
-  
+  const { isAuthenticated,user } = useSelector(state=>state.user)
+  const [loading,setLoading] = useState(false)
+
   // to load available posts
   useEffect(()=>{
+    setLoading(true)
     const fetchData = async () => {
       try {   
         const data = await postListApi();
         setPosts(data);
+        setLoading(false)
       } catch (error) {
         console.error(error);
+        setLoading(false)
       }
     };
   
-    if (user && !loading ) {
+    if (user  ) {
       fetchData();
     } 
-  }, [user,showPostModal,showPostDetailModal,loading]);
+  }, [user,showPostModal,showPostDetailModal]);
 
 // to 
   const fetchData = async () => {
     try {
+      
       const data = await postListApi();
       setPosts([]);
       setPosts(data);
@@ -131,7 +136,7 @@ const HomePage = () => {
       <PostModal isVisible={showPostModal} onClose={closePostModal} postID={postId} />
       <PostDetailModal isVisible={showPostDetailModal} onClose={closePostModal} postID={postId} />
       <div className="mt-10">
-        {posts ? posts.map((post)=>(
+        { posts?.length > 0 ?( posts.map((post)=>(
         <div key={post.id} className="block rounded-lg w-11/12 lg:w-4/6 min-w-min mx-auto mt-3 gap-4 p-2 text-[#252525] shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] bg-white">
           <div
             className="relative overflow-hidden bg-cover bg-no-repeat"
@@ -226,7 +231,7 @@ const HomePage = () => {
             </div>
           </div>
         </div>
-        )):<h1 className='flex justify-center align-middle'>Nothing to show here..!</h1>}
+      ))):(<h1 className='flex justify-center align-middle'>Nothing to show here..!</h1>)}
       </div>
       </>
        )}

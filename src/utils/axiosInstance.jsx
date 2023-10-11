@@ -1,9 +1,8 @@
 import axios from 'axios';
 import { BASE_URL } from './constants';
-// import { UseSelector, useSelector } from 'react-redux';
+
 
 const accessToken = localStorage.getItem('access_token');
-// const {accessToken} = useSelector(state=>state.user)
 
 const axiosInstance = axios.create({
 	baseURL: `${BASE_URL}/api`,
@@ -15,26 +14,6 @@ const axiosInstance = axios.create({
 
 export default axiosInstance
 
-// const getAccessToken = async () => {
-// 	const accessToken = await localStorage.getItem('access_token');
-// 	return accessToken;
-//   };
-  
-//   const createAxiosInstance = async () => {
-// 	const accessToken = await getAccessToken();
-  
-// 	const axiosInstance = axios.create({
-// 	  baseURL: 'http://127.0.0.1:8000',
-// 	  headers: {
-// 		Accept: 'application/json',
-// 		Authorization: `Bearer ${accessToken}`,
-// 	  },
-// 	});
-  
-// 	return axiosInstance;
-//   };
-  
-//   export default createAxiosInstance;
   
 
 

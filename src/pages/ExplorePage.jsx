@@ -9,12 +9,15 @@ import deletePostApi from '../api/deletePostApi'
 import reportPostApi from '../api/reportPostApi'
 import likePostApi from '../api/likePostApi'
 import followUserApi from '../api/followUserApi'
+import createChatRoomApi from '../api/createChatRoomApi'
+
 
 import PostModal from '../components/PostModal'
 import Layout from '../components/Layout'
 import DropdownOptions from '../components/DropdownOptions'
 import PostDetailModal from '../components/PostDetailModal'
 import Loading from '../components/Loading'
+
 
 
 const ExplorePage = () => {
@@ -97,6 +100,7 @@ const ExplorePage = () => {
   const handleToggleFollow = async (userId)=>{
     try{
       await followUserApi(userId,fetchData);
+      await createChatRoomApi(userId);
     }
     catch(error){
       toast.error('Cannot follow user',{

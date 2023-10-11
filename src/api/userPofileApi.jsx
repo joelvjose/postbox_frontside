@@ -1,16 +1,20 @@
-import axios from 'axios';
-import { BASE_URL } from '../utils/constants';
+// import axios from 'axios';
+// import { BASE_URL } from '../utils/constants';
+import axiosInstance from '../utils/axiosInstance';
 
 
 const userPofileApi = async (email) => {
     try {
-        const accessToken = localStorage.getItem('access_token');
-    
-        const response = await axios.get(`${BASE_URL}/api/post/profile/${email}/`, {
-          headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${accessToken}`,
-          },
+        // const accessToken = localStorage.getItem('access_token');
+        // const response = await axios.get(`${BASE_URL}/api/post/profile/${email}/`, {
+        //   headers: {
+        //     Accept: 'application/json',
+        //     Authorization: `Bearer ${accessToken}`,
+        //   },
+        // });
+        const response = await axiosInstance({
+          url: `/post/profile/${email}/`,
+          method: "GET",
         });
     
         if (response.status === 200) {
