@@ -4,7 +4,7 @@ import axiosInstance from '../utils/axiosInstance';
 const getPostDetailApi = async (postID, fetchData) => {
  try{
     const response = await axiosInstance({
-        url: `/post/post-detail/${postID}`,
+        url: `/post/post-detail/${postID}/`,
         method: "GET",
       });
       if (response.status === 200) {

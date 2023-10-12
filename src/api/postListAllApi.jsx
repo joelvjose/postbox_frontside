@@ -5,7 +5,7 @@ import axiosInstance from '../utils/axiosInstance';
 const postListAllApi = async () => {
   try {
     const response = await axiosInstance({
-      url: "/post/explore",
+      url: "/post/explore/",
       method: "GET",
     });
     if (response.status === 200) {

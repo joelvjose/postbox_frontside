@@ -3,7 +3,7 @@ import axiosInstance from "../utils/axiosInstance";
 const getChatMessagesApi = async (roomId) => {
     try {
       const response = await axiosInstance({
-        url: `/chat/chat-room/${roomId}`,
+        url: `/chat/chat-room/${roomId}/`,
         method: "GET",
       });
       if (response.status === 200) {

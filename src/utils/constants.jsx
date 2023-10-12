@@ -1,5 +1,4 @@
 // production
-// export const BASE_URL = 'http://54.210.224.99'
 
 const Protocol = window.location.protocol;
 const BaseDomain = 'postbox.joeje.shop';

@@ -13,7 +13,7 @@ const deletePostApi = async (postId,fetchData) => {
     //   },
     // })
     const response = await axiosInstance({
-      url: `/post/create-post/delete-post/${postId}`,
+      url: `/post/delete-post/${postId}/`,
       method: "DELETE",
     });
     if(response.status === 200){
