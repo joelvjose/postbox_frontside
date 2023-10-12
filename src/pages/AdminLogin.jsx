@@ -26,7 +26,7 @@ const AdminLogin = () => {
     e.preventDefault();
     try{
       dispatch(login({email,password}));
-      navigate('/admin-dashboard')
+      navigate('/users')
     }catch(error){
       toast.error("Admin Login in failed.!")
     }

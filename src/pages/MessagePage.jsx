@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -19,10 +19,11 @@ const MessagePage = () => {
     const [bg, setBg] = useState(false);
     const [dpChat, setDpChat] = useState(null);
     const navigate = useNavigate();
+
     
     useEffect(()=>{
-        const fetchData = async () => {
-            try {
+      const fetchData = async () => {
+        try {
               const result = await contactListApi();
               setProfiles(result);
             } catch (error) {
@@ -35,13 +36,25 @@ const MessagePage = () => {
     },[user]);
 
     useEffect(() => {
-        if (ws) {
-          ws.onmessage = (event) => {
+      if (ws) {
+        ws.onmessage = (event) => {
             const message = JSON.parse(event.data);
             setMessages((prevMessages) => [...prevMessages, message]);
           };
         }
       }, [ws]);
+      
+    const ref = useChatScroll(messages)
+
+    function useChatScroll(dep) {
+      const ref = useRef();
+      useEffect(() => {
+        if (ref.current) {
+          ref.current.scrollTop = ref.current.scrollHeight;
+        }
+      }, [dep]);
+      return ref;
+    }
 
     const handleSendMessage = () => {
         if (ws && inputMessage.trim() !== "") {
@@ -104,7 +117,7 @@ const MessagePage = () => {
         <div className="flex h-screen  p-2">
         <div className="flex flex-col flex-grow w-3/5 mt-20 p-1 m-2 bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.27),0_10px_20px_-2px_rgba(0,0,0,0.04)] rounded-lg overflow-hidden">
           {bg ? (
-            <div className="flex flex-col flex-grow h-0 p-4 overflow-auto">
+            <div ref={ref} className="flex flex-col flex-grow h-0 p-4 overflow-auto">
               {messages?.map((message, index) =>
                 message?.sender_email === user.email ? (
                   <div

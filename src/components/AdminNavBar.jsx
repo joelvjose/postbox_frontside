@@ -20,14 +20,14 @@ const AdminNavBar = () => {
       <div className='px-2 py-8 flex items-center justify-center border-b-2 border-gray-100'>
         <h1 className='text-white text-[20px] leading-[25px] font-extrabold cursor-pointer '> Admin Panel </h1>
       </div>
-      <div className='flex items-center gap-4 py-4 border-b-2  border-[#EDEDED]/[0.3]'>
+      {/* <div className='flex items-center gap-4 py-4 border-b-2  border-[#EDEDED]/[0.3]'>
         <span className="material-symbols-outlined text-xl text-white">speed</span>
         <NavLink to='/admin' className='text-sm leading-5 font-bold text-white'>Dashboard</NavLink>
       </div>
       <div className='flex items-center gap-4 py-4 border-b-2  border-[#EDEDED]/[0.3]'>
         <span className="material-symbols-outlined text-white">person</span>
         <NavLink to='/adminprofile' className='text-sm leading-5 font-bold text-white'>Profile</NavLink>
-      </div>
+      </div> */}
       <div className='py-2 border-b-2  border-[#EDEDED]/[0.3]'>
         <h3 className='text-white text-xs font-mono'>MANAGE</h3>
         <div className='flex items-center gap-2 py-1 '>

@@ -116,7 +116,7 @@ const Networkmodal = ({ isVisible, onClose }) => {
     aria-labelledby="tabs-profile-tab01">
     {following ? following.map((user)=>(
             <Link
-            href="#!"
+            to={`/profile/${user.email}`}
             className="block w-full cursor-pointer rounded-lg p-4 px-5 transition duration-500 hover:bg-neutral-100 hover:text-neutral-500 focus:bg-neutral-100 focus:text-neutral-500 focus:ring-0 dark:hover:bg-neutral-600 dark:hover:text-neutral-200 dark:focus:bg-neutral-600 dark:focus:text-neutral-200">
             <div className="flex items-center space-x-4">
                     <div className="flex-shrink-0">
